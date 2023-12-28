@@ -9,7 +9,7 @@
   </head>
   <body>
     <h1>Для задания 1</h1>
-    <div class="task1"> 
+    <div class="task1">
       <table id="table1">
         <tr>
           <th>Имя</th>
@@ -35,31 +35,83 @@
       <div>
         <form id="form1">
           <div>
-            <input value="" placeholder="Имя" id="form1-name">
+            <input value="" placeholder="Имя" id="form1-name" />
           </div>
           <div>
-            <input value="" placeholder="Отдел" id="form1-department">
+            <input value="" placeholder="Отдел" id="form1-department" />
           </div>
           <div>
-            <input value="" placeholder="Возраст" id="form1-age">
+            <input value="" placeholder="Возраст" id="form1-age" />
           </div>
           <div>
-            <input type="button" value="Добавить новую строку" id="form1-btn">
+            <input type="button" value="Добавить новую строку" id="form1-btn" />
           </div>
         </form>
       </div>
     </div>
+
     <script>
-      // 1. Написать функцию для сортировки таблицы #table1 по столбцу "Имя". 
+      //Задание 1
+      document.addEventListener("DOMContentLoaded", function () {
+        let table = document.getElementById("table1");
+        let name = table.rows[0].cells[0];
+        name.addEventListener("click", function (event) {
+          let sortedRows = Array.from(table.rows)
+            .splice(1)
+            .sort((a, b) => {
+              //return a.cells[0].innerHTML - b.cells[0].innerHTML //Почему не работает этот вариант?
+              if (a > b) {
+                //Почему это условие применяется именно к первому столбцу?
+                return 1;
+              } else {
+                return -1;
+              }
+            });
+          //console.log(sortedRows);
+          table.tBodies[0].append(...sortedRows);
+        });
+      });
+
+      //Задание 2
+
+      let form = document.getElementById("form1");
+      let table = document.getElementById("table1");
+      let btn1 = document.getElementById("form1-btn");
+
+      form.addEventListener("submit", (event) => {
+        let name = form.querySelector("#name").value;
+        let department = form.querySelector("#form1-department").value;
+        let age = form.querySelector("#form1-age").value;
+        console.log(name, department, age); //Почему не читает значения этих переменных?
+        addTableRow();
+      });
+
+      function addTableRow() {
+        (rowsCount = table.rows.length),
+          (newRowNumber = rowsCount + 1),
+          (newRow = table.insertRow());
+        newCell;
+        newCell = newRow.insertCell();
+        newCell.textContent = name;
+        newCell;
+        newCell = newRow.insertCell();
+        newCell.textContent = department;
+        newCell;
+        newCell = newRow.insertCell();
+        newCell.textContent = age;
+      }
+
+      // 1. Написать функцию для сортировки таблицы #table1 по столбцу "Имя".
       // В таблице может быть больше строк.
       // Функцию сортировки необходимо вызывать при клике на столбце "Имя".
       // Один клик на столбце, сортировка по алфавиту, второй клик, в обратном порядке.
       // Также, можете добавить CSS стили на свое усмотрение.
-      // *2. Напишите функцию для добавления строк в таблицу из формы. Новые строки должны тоже учавствовать в сортировке.
-      // *3. Добавьте возможность удаления строк из таблицы. Это не должно как-то влиять на сортировку.
+      // *2. Напишите функцию для добавления строк в таблицу из формы. Новые строки
+      // должны тоже учавствовать в сортировке.
+      // *3. Добавьте возможность удаления строк из таблицы. Это не должно как-то
+      // влиять на сортировку.
       // Решение:
 
-      
       // Пример:
       // let sort1 = [1, 20, -3, 4].sort((a, b) => {
       //   if(a > b) {
@@ -80,14 +132,12 @@
       // console.log(sort2);
 
       // // Получение строк таблицы
-      // let rows = Array.from(document.getElementById("table1").rows).splice(1);
+      //let rows = Array.from(document.getElementById("table1").rows).splice(1);
       // console.log(rows);
     </script>
 
     <h1>Для задания 2</h1>
-    <div class="task3" id="calendar">
-
-    </div>
+    <div class="task3" id="calendar"></div>
     <div id="task3-form">
       <form id="form2">
         <!-- Добавьте необходимые поля формы -->
@@ -97,14 +147,14 @@
       .task3 table {
         border-collapse: collapse;
       }
-  
+
       .task3 td,
       .task3 th {
         border: 1px solid black;
         padding: 3px;
         text-align: center;
       }
-  
+
       .task3 th {
         background-color: orange;
         font-weight: bold;
@@ -119,7 +169,7 @@
       // Напишите функцию newCalendar(elementLink, year, month).
 
       // Вызов функции newCalendar() создаст календарь для заданного месяца month в году year и вставить его внутрь elementLink.
-      // Календарь должен быть в виде таблицы (тег table), где неделя – это <tr>, а день – это <td>. 
+      // Календарь должен быть в виде таблицы (тег table), где неделя – это <tr>, а день – это <td>.
       // У таблицы должен быть заголовок с названиями дней недели, каждый день – <th>.
       // Первый день недели в календаре - понедельник.
       // *Если выбран текущий месяц, подсветите красным текущий день на календаре.
@@ -130,7 +180,8 @@
       // 2. *Добавьте кнопку для построения календаря за текущий месяц
 
       // Подсказки
-      let year = 2022, month = 1;
+      let year = 2022,
+        month = 1;
       let date = new Date(year, month - 1); // Создание объекта Date для месяца month в году year (номерация начинается с 0)
       let day = date.getDay(); // Получение номера дня недели
       console.log(day);
@@ -144,8 +195,6 @@
       console.log(day);
 
       // Решение:
-
-
     </script>
   </body>
 </html>
